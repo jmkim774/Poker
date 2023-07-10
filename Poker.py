@@ -26,18 +26,71 @@ class Card:
 def makedraw(card:Card):
     card.draw()
 
-class Player:
+#spade_card
+
+class SCard(Card):
+    def __init__(self, num):
+        self.suit = chr(9824)
+        self.shape = [0 for i in range(6)]
+        self.num = num
+        self.state = "unmatch"
+
+#heart_card
+
+class HCard(Card):
+    def __init__(self, num):
+        self.suit = chr(9829)
+        self.shape = [0 for i in range(6)]
+        self.num = num
+        self.state = "unmatch"
+
+#diamond_card
+
+class DCard(Card):
+    def __init__(self, num):
+        self.suit = chr(9674)
+        self.shape = [0 for i in range(6)]
+        self.num = num
+        self.state = "unmatch"
+
+#clover_card
+
+class CCard(Card):
+    def __init__(self, num):
+        self.suit = chr(9827)
+        self.shape = [0 for i in range(6)]
+        self.num = num
+        self.state = "unmatch"
+
+#card_factory
+
+class factory(Card):
+    def makecard(self, suit:suitEnum, num):
+        if suit == suitEnum.SPADE:
+            return SCard(num)
+        elif suit == suitEnum.HEART:
+            return HCard(num)
+        elif suit == suitEnum.DIAMOND:
+            return DCard(num)
+        elif suit == suitEnum.CLUB:
+            return CCard(num)
+
+    def calc(self, num):
+        self.amount += num
+        
+# money
+class Singleton(object):
+    def __new__(cls):
+
+        if not hasattr(cls, 'instance'):
+            cls.instance = super(Singleton, cls).__new__(cls)
+        return cls.instance
+
     def __init__(self):
         self.amount = 100
-    
-    # decorator를 위한 함수
-def makedraw(card:Card):
-    card.draw()
 
-# main문 
-player = Player()
-com_money = 200
-
+    def calc(self, num):
+        self.amount += num
 
 # 카드 표시
 class Deco(Card):
@@ -81,6 +134,114 @@ class unmatchCard(Deco):
             self.card.shape[3]="|     " + str(self.card.num) + "   |"
             self.card.shape[4]="|         |"
             self.card.shape[5]="-----------" 
+
+# check pair
+def ispair(cards):
+    nlist = []
+    for i in cards:
+        nlist.append(i.num)
+    nlist.sort()
+    result = []
+
+    for i in range(1, 14):
+        if nlist.count(i) == 4:
+            for j in cards:
+                if j.num == i:
+                    j.state = "match"
+            result.append(4)
+        elif nlist.count(i) == 3:
+            for j in cards:
+                if j.num == i:
+                    j.state = "match"
+            result.append(3)
+        elif nlist.count(i) == 2:
+            for j in cards:
+                if j.num == i:
+                    j.state = "match"
+            result.append(2)
+    if 4 in result:
+        return 8
+    elif 3 in result:
+        if 2 in result:
+            return 7
+        else:
+            return 3
+    elif 2 in result:
+        if result.count(2) >= 2:
+            return 2
+        else:
+            return 1
+    else:
+        return 0
+      
+# check flush
+def isflush(cards):
+    SFcount, HFcount, DFcount, CFcount = 0, 0, 0, 0
+    for i in range(len(cards)):
+        if cards[i].suit == chr(9824):
+            SFcount += 1
+        elif cards[i].suit == chr(9829):
+            HFcount += 1
+        elif cards[i].suit == chr(9674):
+            DFcount += 1
+        elif cards[i].suit == chr(9827):
+            CFcount += 1
+        if SFcount >= 5:
+            for j in cards:
+                if j.suit == chr(9824):
+                    j.state = "match"
+            return True
+        elif HFcount >= 5:
+            for j in cards:
+                if j.suit == chr(9829):
+                    j.state = "match"
+            return True
+        elif DFcount >= 5:
+            for j in cards:
+                if j.suit == chr(9674):
+                    j.state = "match"
+            return True
+        elif CFcount >= 5:
+            for j in cards:
+                if j.suit == chr(9827):
+                    j.state = "match"
+            return True
+          
+# straight 판별 함수
+def isstraight(cards):
+    nlist = []
+    for i in cards:
+        nlist.append(i.num)
+    nlist.sort()
+    for i in range(len(nlist)):
+        count = 0
+        for j in range(i, len(nlist)):
+            if nlist[j] == 0 and nlist[j - 1] == 11:
+                count += 1
+            if count == 5:
+                for k in cards:
+                    if k.num in [nlist[j], nlist[j-1], nlist[j-2], nlist[j-3], nlist[j-3]] :
+                        k.state = "match"
+                return True
+    return False
+
+# 랭크 판별 함수
+def card_rank(cards):
+    rank = 0
+    rank = ispair(cards)
+    if isstraight(cards):
+        if rank < 5:
+            rank = 5
+    if isflush(cards):
+        if rank == 5:
+            rank = 9
+        elif rank <6:
+            rank = 6
+    return rank
+
+# main문 
+player = Singleton()
+com_money = 200
 
 while(player.amount > 0 and com_money > 0):
     print("----------------new game----------------")
