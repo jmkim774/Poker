@@ -258,6 +258,58 @@ while(player.amount > 0 and com_money > 0):
         deck.append(fac.makecard(suitEnum.DIAMOND, i))
     for i in range(1, 14):
         deck.append(fac.makecard(suitEnum.CLUB, i))
+
+    
+    print("--------------shuffle deck---------------")
+    print()
+    random.shuffle(deck)
+
+
+    print("----------------your hand----------------")
+    print()
+    player_cards = [ deck[k] for k in range(0, 5)]
+    com_cards = [ deck[k] for k in range(5, 10)]
+
+
+    player_rank = card_rank(player_cards)
+
+
+    player_hand = ["" for i in range(6)]
+    for i in player_cards:
+        if i.state == "match":
+            di = matchCard(i)
+        elif i.state == "unmatch":
+            di = unmatchCard(i)
+        makedraw(di)
+        for j in range(6):
+            player_hand[j] = player_hand[j] + i.shape[j]
+            player_hand[j] = player_hand[j] + "   "
+
+  
+    for i in player_hand:
+        print(i)
+
+    print("-----------------------------------------")    
+    print()
+    
+    print("your rank is ", player_rank)
+    print("your money : ",player.amount)
+    print("com money : " ,com_money)
+
+    betting = 0
+
+
+    print("if you want betting, please insert amount? (-1 is Fold) :")
+    TB = int(input())
+    if TB < 0:
+        print("---------------you fold---------------")
+        print()
+        continue
+    if betting+TB >player.amount:
+        print("you can't betting more than your money!!")
+        print()
+    else:
+        betting = betting + TB   
     # make cards...
     print("--------------shuffle deck---------------")
     # random.shuffle(deck)
