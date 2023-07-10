@@ -395,6 +395,75 @@ while(player.amount > 0 and com_money > 0):
     else:
         betting = betting + TB
     
+    print()
+    print("---------------result-------------------")
+    print()
+    
+    print("----------------your hand----------------")
+    player_rank = card_rank(player_cards)
+
+    player_hand = ["" for i in range(6)]
+    for i in player_cards:
+        if i.state == "match":
+            di = matchCard(i)
+        elif i.state == "unmatch":
+            di = unmatchCard(i)
+        makedraw(di)
+        for j in range(6):
+            player_hand[j] = player_hand[j] + i.shape[j]
+            player_hand[j] = player_hand[j] + "   "
+
+    for i in player_hand:
+        print(i)
+
+    print("your rank is ", player_rank)
+    print("-----------------------------------------")
+    print() 
+    
+    print("----------------com hand----------------")
+    com_rank = card_rank(com_cards)
+
+    com_hand = ["" for i in range(6)]
+    for i in com_cards:
+        if i.state == "match":
+            di = matchCard(i)
+        elif i.state == "unmatch":
+            di = unmatchCard(i)
+        makedraw(di)
+        for j in range(6):
+            com_hand[j] = com_hand[j] + i.shape[j]
+            com_hand[j] = com_hand[j] + "   "
+
+    for i in com_hand:
+        print(i)
+
+    print("com rank is ", com_rank)
+    print("-----------------------------------------")  
+    print()
+    
+    if com_rank < player_rank:
+        print("You Win!")
+        player.calc(betting)
+        com_money -= betting
+    elif com_rank > player_rank:
+        print("You Lose!")
+        player.calc(-betting)
+        com_money += betting
+        
+    else: 
+        print("DRAW!")
+    print("your money : ",player.amount)
+    print("com money : " ,com_money)
+    print()
+    
+    if player.amount > 0:
+        if com_money <= 0:
+            input("----Finally You Win!! Congratulation----")
+        input("press enter to next game")
+    else:
+        input("----Finally You Lose!! Try Again Later----")
+
+    
     # make cards...
     print("--------------shuffle deck---------------")
     # random.shuffle(deck)
