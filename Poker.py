@@ -62,6 +62,22 @@ class CCard(Card):
         self.num = num
         self.state = "unmatch"
 
+#card_factory
+
+class factory(Card):
+    def makecard(self, suit:suitEnum, num):
+        if suit == suitEnum.SPADE:
+            return SCard(num)
+        elif suit == suitEnum.HEART:
+            return HCard(num)
+        elif suit == suitEnum.DIAMOND:
+            return DCard(num)
+        elif suit == suitEnum.CLUB:
+            return CCard(num)
+
+    def calc(self, num):
+        self.amount += num
+        
 # money
 class Singleton(object):
     def __new__(cls):
@@ -69,12 +85,6 @@ class Singleton(object):
         if not hasattr(cls, 'instance'):
             cls.instance = super(Singleton, cls).__new__(cls)
         return cls.instance
-
-    def __init__(self):
-        self.amount = 100
-
-    def calc(self, num):
-        self.amount += num
 
 # 카드 표시
 class Deco(Card):
