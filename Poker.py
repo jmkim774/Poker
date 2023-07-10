@@ -247,6 +247,7 @@ while(player.amount > 0 and com_money > 0):
     print("----------------new game----------------")
     betting = 0
     print("---------------making deck--------------")
+
     # make deck
     deck = list() 
     fac = factory()
@@ -261,12 +262,10 @@ while(player.amount > 0 and com_money > 0):
 
     
     print("--------------shuffle deck---------------")
-    print()
     random.shuffle(deck)
 
 
     print("----------------your hand----------------")
-    print()
     player_cards = [ deck[k] for k in range(0, 5)]
     com_cards = [ deck[k] for k in range(5, 10)]
 
@@ -289,15 +288,11 @@ while(player.amount > 0 and com_money > 0):
     for i in player_hand:
         print(i)
 
-    print("-----------------------------------------")    
-    print()
+    print("-----------------------------------------")
     
     print("your rank is ", player_rank)
     print("your money : ",player.amount)
     print("com money : " ,com_money)
-
-    betting = 0
-
 
     print("if you want betting, please insert amount? (-1 is Fold) :")
     TB = int(input())
@@ -335,7 +330,6 @@ while(player.amount > 0 and com_money > 0):
         print(i)
 
     print("-----------------------------------------")
-    print()    
 
     print("your rank is ", player_rank)
 
@@ -346,7 +340,6 @@ while(player.amount > 0 and com_money > 0):
     TB = int(input())
     if TB < 0:
         print("---------------you fold---------------")
-        print()
         continue
     if betting+TB >player.amount:
         print("you can't betting more than your money!!")
@@ -355,12 +348,10 @@ while(player.amount > 0 and com_money > 0):
     
     
     print("----------------last turn----------------")
-    print()
     player_cards.append(deck[13])
     com_cards.append(deck[14])
 
     print("----------------your hand----------------")
-    print()
     player_rank = card_rank(player_cards)
 
     player_hand = ["" for i in range(6)]
@@ -378,7 +369,6 @@ while(player.amount > 0 and com_money > 0):
         print(i)
 
     print("-----------------------------------------")    
-    print()
 
     print("your rank is ", player_rank)
     print("your betting amount is ", betting)
@@ -388,16 +378,13 @@ while(player.amount > 0 and com_money > 0):
     TB = int(input())
     if TB < 0:
         print("---------------you fold---------------")
-        print()
         continue
     if betting+TB >player.amount:
         print("you can't betting more than your money!!")
     else:
         betting = betting + TB
     
-    print()
     print("---------------result-------------------")
-    print()
     
     print("----------------your hand----------------")
     player_rank = card_rank(player_cards)
@@ -418,7 +405,6 @@ while(player.amount > 0 and com_money > 0):
 
     print("your rank is ", player_rank)
     print("-----------------------------------------")
-    print() 
     
     print("----------------com hand----------------")
     com_rank = card_rank(com_cards)
@@ -439,7 +425,6 @@ while(player.amount > 0 and com_money > 0):
 
     print("com rank is ", com_rank)
     print("-----------------------------------------")  
-    print()
     
     if com_rank < player_rank:
         print("You Win!")
@@ -454,77 +439,7 @@ while(player.amount > 0 and com_money > 0):
         print("DRAW!")
     print("your money : ",player.amount)
     print("com money : " ,com_money)
-    print()
     
-    if player.amount > 0:
-        if com_money <= 0:
-            input("----Finally You Win!! Congratulation----")
-        input("press enter to next game")
-    else:
-        input("----Finally You Lose!! Try Again Later----")
-
-    
-    # make cards...
-    print("--------------shuffle deck---------------")
-    # random.shuffle(deck)
-    print("----------------your hand----------------")
-    # print player's hand card
-    print("-----------------------------------------")
-    # print player's rank
-    # print player's and com's money
-
-    print("if you want betting, please insert amount? (-1 is Fold) :")
-    # input batting amount
-    TB = int(input())
-    if TB < 0:
-        print("---------------you fold---------------")
-        break
-    if betting+TB >player.amount:
-        print("you can't betting more than your money!!")
-    else:
-        betting = betting + TB
-        
-
-    print("----------------2nd turn----------------")
-    # add card
-    print("----------------your hand----------------")
-    # repeat 
-    print("-----------------------------------------")
-    print("if you want betting, please insert amount? (-1 is Fold) :")
-    TB = int(input())
-    if TB < 0:
-        print("---------------you fold---------------")
-        continue
-    if betting+TB >player.amount:
-        print("you can't betting more than your money!!")
-    else:
-        betting = betting + TB
-    
-    print("----------------last turn----------------")
-    # add cord
-    print("----------------your hand----------------")
-    # repeat
-    print("-----------------------------------------")    
-    print("if you want betting, please insert amount? (-1 is Fold) :")
-    TB = int(input())
-    if TB < 0:
-        print("---------------you fold---------------")
-        continue
-    if betting+TB >player.amount:
-        print("you can't betting more than your money!!")
-    else:
-        betting = betting + TB
-
-    print("---------------result-------------------")
-    print("----------------your hand----------------")
-    # show player's card and rank
-    print("-----------------------------------------")
-    
-    print("----------------com hand----------------")
-    # show com's card and rank
-    print("-----------------------------------------")  
-    # print win or lose or draw 
-        
     if player.amount > 0:
         if com_money <= 0:
             input("----Finally You Win!! Congratulation----")
