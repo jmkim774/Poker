@@ -310,6 +310,91 @@ while(player.amount > 0 and com_money > 0):
         print()
     else:
         betting = betting + TB   
+
+    print("----------------2nd turn----------------")
+    print()
+    player_cards.append(deck[11])
+    com_cards.append(deck[12])
+
+    print("----------------your hand----------------")
+    print()
+    player_rank = card_rank(player_cards)
+
+    player_hand = ["" for i in range(6)]
+    for i in player_cards:
+        if i.state == "match":
+            di = matchCard(i)
+        elif i.state == "unmatch":
+            di = unmatchCard(i)
+        makedraw(di)
+        for j in range(6):
+            player_hand[j] = player_hand[j] + i.shape[j]
+            player_hand[j] = player_hand[j] + "   "
+  
+    for i in player_hand:
+        print(i)
+
+    print("-----------------------------------------")
+    print()    
+
+    print("your rank is ", player_rank)
+
+    print("your betting amount is ", betting) # 전 턴과는 달리 현재 베팅 금액을 표시해줌
+    print("your money : ",player.amount)
+    print("com money : " ,com_money)
+    print("if you want betting, please insert amount? (-1 is Fold) :")
+    TB = int(input())
+    if TB < 0:
+        print("---------------you fold---------------")
+        print()
+        continue
+    if betting+TB >player.amount:
+        print("you can't betting more than your money!!")
+    else:
+        betting = betting + TB
+    
+    
+    print("----------------last turn----------------")
+    print()
+    player_cards.append(deck[13])
+    com_cards.append(deck[14])
+
+    print("----------------your hand----------------")
+    print()
+    player_rank = card_rank(player_cards)
+
+    player_hand = ["" for i in range(6)]
+    for i in player_cards:
+        if i.state == "match":
+            di = matchCard(i)
+        elif i.state == "unmatch":
+            di = unmatchCard(i)
+        makedraw(di)
+        for j in range(6):
+            player_hand[j] = player_hand[j] + i.shape[j]
+            player_hand[j] = player_hand[j] + "   "
+
+    for i in player_hand:
+        print(i)
+
+    print("-----------------------------------------")    
+    print()
+
+    print("your rank is ", player_rank)
+    print("your betting amount is ", betting)
+    print("your money : ",player.amount)
+    print("com money : " ,com_money)
+    print("if you want betting, please insert amount? (-1 is Fold) :")
+    TB = int(input())
+    if TB < 0:
+        print("---------------you fold---------------")
+        print()
+        continue
+    if betting+TB >player.amount:
+        print("you can't betting more than your money!!")
+    else:
+        betting = betting + TB
+    
     # make cards...
     print("--------------shuffle deck---------------")
     # random.shuffle(deck)
