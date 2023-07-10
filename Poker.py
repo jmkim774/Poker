@@ -1,4 +1,26 @@
 import random
+from enum import Enum
+
+# 카드 클래스 생성
+class suitEnum(Enum):
+    SPADE = 0
+    HEART = 1
+    DIAMOND = 2
+    CLUB = 3
+
+# 카드 클래스 생성
+class Card:
+    def __init__(self):
+        self.suit = "UND"
+        self.num = 0
+        self.state = "unmatch"
+        self.shape = []
+
+    def setState(self, state:str):
+        self.state = state
+
+    def draw(self):
+        pass
 
 class Player:
     def __init__(self):
