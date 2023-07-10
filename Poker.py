@@ -34,6 +34,39 @@ class Player:
 def makedraw(card:Card):
     card.draw()
 
+# check flush
+def isflush(cards):
+    SFcount, HFcount, DFcount, CFcount = 0, 0, 0, 0
+    for i in range(len(cards)):
+        if cards[i].suit == chr(9824):
+            SFcount += 1
+        elif cards[i].suit == chr(9829):
+            HFcount += 1
+        elif cards[i].suit == chr(9674):
+            DFcount += 1
+        elif cards[i].suit == chr(9827):
+            CFcount += 1
+        if SFcount >= 5:
+            for j in cards:
+                if j.suit == chr(9824):
+                    j.state = "match"
+            return True
+        elif HFcount >= 5:
+            for j in cards:
+                if j.suit == chr(9829):
+                    j.state = "match"
+            return True
+        elif DFcount >= 5:
+            for j in cards:
+                if j.suit == chr(9674):
+                    j.state = "match"
+            return True
+        elif CFcount >= 5:
+            for j in cards:
+                if j.suit == chr(9827):
+                    j.state = "match"
+            return True
+
 # main문 
 player = Player()
 com_money = 200
