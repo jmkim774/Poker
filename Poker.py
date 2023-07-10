@@ -53,6 +53,15 @@ class DCard(Card):
         self.num = num
         self.state = "unmatch"
 
+#clover_card
+
+class CCard(Card):
+    def __init__(self, num):
+        self.suit = chr(9827)
+        self.shape = [0 for i in range(6)]
+        self.num = num
+        self.state = "unmatch"
+
 class Player:
     def __init__(self):
         self.amount = 100
