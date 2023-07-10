@@ -22,15 +22,29 @@ class Card:
     def draw(self):
         pass
 
+    # decorator를 위한 함수
+def makedraw(card:Card):
+    card.draw()
+
 class Player:
     def __init__(self):
         self.amount = 100
     
+    # decorator를 위한 함수
+def makedraw(card:Card):
+    card.draw()
 
 # main문 
 player = Player()
 com_money = 200
 
+
+# 카드 표시
+class Deco(Card):
+    def __init__(self, card:Card):
+        self.card = card
+    def draw(self):
+        self.card.draw()
 
 while(player.amount > 0 and com_money > 0):
     print("----------------new game----------------")
