@@ -43,6 +43,24 @@ class Player:
 def makedraw(card:Card):
     card.draw()
 
+# straight 판별 함수
+def isstraight(cards):
+    nlist = []
+    for i in cards:
+        nlist.append(i.num)
+    nlist.sort()
+    for i in range(len(nlist)):
+        count = 0
+        for j in range(i, len(nlist)):
+            if nlist[j] == 0 and nlist[j - 1] == 11:
+                count += 1
+            if count == 5:
+                for k in cards:
+                    if k.num in [nlist[j], nlist[j-1], nlist[j-2], nlist[j-3], nlist[j-3]] :
+                        k.state = "match"
+                return True
+    return False
+
 # main문 
 player = Player()
 com_money = 200
