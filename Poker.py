@@ -44,6 +44,15 @@ class HCard(Card):
         self.num = num
         self.state = "unmatch"
 
+#diamond_card
+
+class DCard(Card):
+    def __init__(self, num):
+        self.suit = chr(9674)
+        self.shape = [0 for i in range(6)]
+        self.num = num
+        self.state = "unmatch"
+
 class Player:
     def __init__(self):
         self.amount = 100
