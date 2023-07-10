@@ -62,6 +62,19 @@ class CCard(Card):
         self.num = num
         self.state = "unmatch"
 
+#card_factory
+
+class factory(Card):
+    def makecard(self, suit:suitEnum, num):
+        if suit == suitEnum.SPADE:
+            return SCard(num)
+        elif suit == suitEnum.HEART:
+            return HCard(num)
+        elif suit == suitEnum.DIAMOND:
+            return DCard(num)
+        elif suit == suitEnum.CLUB:
+            return CCard(num)
+
 class Player:
     def __init__(self):
         self.amount = 100
