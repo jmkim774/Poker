@@ -62,13 +62,62 @@ class CCard(Card):
         self.num = num
         self.state = "unmatch"
 
-class Player:
+# money
+class Singleton(object):
+    def __new__(cls):
+
+        if not hasattr(cls, 'instance'):
+            cls.instance = super(Singleton, cls).__new__(cls)
+        return cls.instance
+
     def __init__(self):
         self.amount = 100
+
+    def calc(self, num):
+        self.amount += num
+
+# 카드 표시
+class Deco(Card):
+    def __init__(self, card:Card):
+        self.card = card
+    def draw(self):
+        self.card.draw()
+
+# 카드 표시
+class matchCard(Deco):
+    def draw(self):
+        if self.card.num >= 10:
+            self.card.shape[0] = "###########"
+            self.card.shape[1]="#         #"
+            self.card.shape[2]="#    " + self.card.suit + "    #"
+            self.card.shape[3]="#    " + str(self.card.num) + "   #"
+            self.card.shape[4]="#         #"
+            self.card.shape[5]="###########"    
+        else:
+            self.card.shape[0]="###########"
+            self.card.shape[1]="#         #"
+            self.card.shape[2]="#    " + self.card.suit + "    #"
+            self.card.shape[3]="#    " + str(self.card.num) + "    #"
+            self.card.shape[4]="#         #"
+            self.card.shape[5]="###########"     
     
-    # decorator를 위한 함수
-def makedraw(card:Card):
-    card.draw()
+# 카드 표시
+class unmatchCard(Deco):
+    def draw(self):
+        if self.card.num >= 10:
+            self.card.shape[0]="-----------"
+            self.card.shape[1]="|         |"
+            self.card.shape[2]="|    " + self.card.suit + "    |"
+            self.card.shape[3]="|    " + str(self.card.num) + "   |"
+            self.card.shape[4]="|         |"
+            self.card.shape[5]="-----------"    
+        else:
+            self.card.shape[0]="-----------"
+            self.card.shape[1]="|         |"
+            self.card.shape[2]="|    " + self.card.suit + "    |"
+            self.card.shape[3]="|     " + str(self.card.num) + "   |"
+            self.card.shape[4]="|         |"
+            self.card.shape[5]="-----------" 
 
 # check pair
 def ispair(cards):
@@ -164,49 +213,6 @@ def isstraight(cards):
 player = Player()
 com_money = 200
 
-
-# 카드 표시
-class Deco(Card):
-    def __init__(self, card:Card):
-        self.card = card
-    def draw(self):
-        self.card.draw()
-
-# 카드 표시
-class matchCard(Deco):
-    def draw(self):
-        if self.card.num >= 10:
-            self.card.shape[0] = "###########"
-            self.card.shape[1]="#         #"
-            self.card.shape[2]="#    " + self.card.suit + "    #"
-            self.card.shape[3]="#    " + str(self.card.num) + "   #"
-            self.card.shape[4]="#         #"
-            self.card.shape[5]="###########"    
-        else:
-            self.card.shape[0]="###########"
-            self.card.shape[1]="#         #"
-            self.card.shape[2]="#    " + self.card.suit + "    #"
-            self.card.shape[3]="#    " + str(self.card.num) + "    #"
-            self.card.shape[4]="#         #"
-            self.card.shape[5]="###########"     
-    
-# 카드 표시
-class unmatchCard(Deco):
-    def draw(self):
-        if self.card.num >= 10:
-            self.card.shape[0]="-----------"
-            self.card.shape[1]="|         |"
-            self.card.shape[2]="|    " + self.card.suit + "    |"
-            self.card.shape[3]="|    " + str(self.card.num) + "   |"
-            self.card.shape[4]="|         |"
-            self.card.shape[5]="-----------"    
-        else:
-            self.card.shape[0]="-----------"
-            self.card.shape[1]="|         |"
-            self.card.shape[2]="|    " + self.card.suit + "    |"
-            self.card.shape[3]="|     " + str(self.card.num) + "   |"
-            self.card.shape[4]="|         |"
-            self.card.shape[5]="-----------" 
 
 while(player.amount > 0 and com_money > 0):
     print("----------------new game----------------")
