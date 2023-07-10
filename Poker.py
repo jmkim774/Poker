@@ -243,12 +243,21 @@ def card_rank(cards):
 player = Singleton()
 com_money = 200
 
-
 while(player.amount > 0 and com_money > 0):
     print("----------------new game----------------")
     betting = 0
     print("---------------making deck--------------")
-    # make deck...
+    # make deck
+    deck = list() 
+    fac = factory()
+    for i in range(1, 14):
+        deck.append(fac.makecard(suitEnum.SPADE, i))
+    for i in range(1, 14):
+        deck.append(fac.makecard(suitEnum.HEART, i))
+    for i in range(1, 14):
+        deck.append(fac.makecard(suitEnum.DIAMOND, i))
+    for i in range(1, 14):
+        deck.append(fac.makecard(suitEnum.CLUB, i))
     # make cards...
     print("--------------shuffle deck---------------")
     # random.shuffle(deck)
