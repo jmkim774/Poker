@@ -34,6 +34,45 @@ class Player:
 def makedraw(card:Card):
     card.draw()
 
+# check pair
+def ispair(cards):
+    nlist = []
+    for i in cards:
+        nlist.append(i.num)
+    nlist.sort()
+    result = []
+
+    for i in range(1, 14):
+        if nlist.count(i) == 4:
+            for j in cards:
+                if j.num == i:
+                    j.state = "match"
+            result.append(4)
+        elif nlist.count(i) == 3:
+            for j in cards:
+                if j.num == i:
+                    j.state = "match"
+            result.append(3)
+        elif nlist.count(i) == 2:
+            for j in cards:
+                if j.num == i:
+                    j.state = "match"
+            result.append(2)
+    if 4 in result:
+        return 8
+    elif 3 in result:
+        if 2 in result:
+            return 7
+        else:
+            return 3
+    elif 2 in result:
+        if result.count(2) >= 2:
+            return 2
+        else:
+            return 1
+    else:
+        return 0
+
 # main문 
 player = Player()
 com_money = 200
