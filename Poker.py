@@ -209,8 +209,22 @@ def isstraight(cards):
                 return True
     return False
 
+# 랭크 판별 함수
+def card_rank(cards):
+    rank = 0
+    rank = ispair(cards)
+    if isstraight(cards):
+        if rank < 5:
+            rank = 5
+    if isflush(cards):
+        if rank == 5:
+            rank = 9
+        elif rank <6:
+            rank = 6
+    return rank
+
 # main문 
-player = Player()
+player = Singleton()
 com_money = 200
 
 
