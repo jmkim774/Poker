@@ -86,6 +86,12 @@ class Singleton(object):
             cls.instance = super(Singleton, cls).__new__(cls)
         return cls.instance
 
+    def __init__(self):
+        self.amount = 100
+
+    def calc(self, num):
+        self.amount += num
+
 # 카드 표시
 class Deco(Card):
     def __init__(self, card:Card):
